@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
-import asyncHandler from 'express-async-handler';
-import User from '../model/userModel.js';
+const jwt = require('jsonwebtoken');
+const asyncHandler = require('express-async-handler');
+const User = require('../model/userModel');
 
 const auth = asyncHandler(async (req, res, next) => {
   // Geting token from 'x-auth-token' header
@@ -27,4 +27,4 @@ const auth = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { auth };
+module.exports = { auth };

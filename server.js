@@ -1,8 +1,8 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import connectDB from './config/db.js';
-import routes from './routes/routes.js';
-import { notFound, errorHandler } from './middleware/error.js';
+const express = require('express');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const routes = require('./routes/routes');
+const { notFound, errorHandler } = require('./middleware/error');
 
 dotenv.config();
 connectDB();

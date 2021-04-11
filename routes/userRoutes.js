@@ -1,11 +1,11 @@
-import express from 'express';
-import {
+const express = require('express');
+const {
   authUser,
   getUserProfile,
   registerUser,
-  updateUserProfile
-} from '../controllers/userController.js';
-import { auth } from '../middleware/authentication.js';
+  updateUserProfile,
+} = require('../controllers/userController');
+const { auth } = require('../middleware/authentication');
 const router = express.Router();
 
 //Login Route
@@ -20,5 +20,4 @@ router.get('/users/profile', auth, getUserProfile);
 //Update User Profile
 router.put('/users/profile', auth, updateUserProfile);
 
-
-export default router;
+module.exports = router;

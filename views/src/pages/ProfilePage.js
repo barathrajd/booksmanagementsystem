@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import { getUserDetails, updateUserDetails } from "../actions/userActions";
+import React, { useState, useEffect } from 'react';
+import { Form, Button, Row, Col } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import { getUserDetails, updateUserDetails } from '../actions/userActions';
 
 const ProfilePage = ({ location, history }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confrimPassword, setConfrimPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confrimPassword, setConfrimPassword] = useState('');
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -25,10 +25,10 @@ const ProfilePage = ({ location, history }) => {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login');
     } else {
       if (!user.name) {
-        dispatch(getUserDetails("profile"));
+        dispatch(getUserDetails('profile'));
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -39,7 +39,7 @@ const ProfilePage = ({ location, history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confrimPassword) {
-      setMessage("Password do not match");
+      setMessage('Password do not match');
     } else {
       dispatch(
         updateUserDetails({
@@ -56,48 +56,48 @@ const ProfilePage = ({ location, history }) => {
     <Row>
       <Col md={3}>
         <h2>User Profile</h2>
-        {message && <Message variant="danger">{message}</Message>}
-        {error && <Message variant="danger">{error}</Message>}
-        {success && <Message variant="success">Profile Updated</Message>}
+        {message && <Message variant='danger'>{message}</Message>}
+        {error && <Message variant='danger'>{error}</Message>}
+        {success && <Message variant='success'>Profile Updated</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
-          <Form.Group controlId="name">
+          <Form.Group controlId='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control
-              type="name"
-              placeholder="Enter name"
+              type='name'
+              placeholder='Enter name'
               value={name}
               onChange={(e) => setName(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="email">
+          <Form.Group controlId='email'>
             <Form.Label>Email Address</Form.Label>
             <Form.Control
-              type="email"
-              placeholder="Enter email"
+              type='email'
+              placeholder='Enter email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="password">
+          <Form.Group controlId='password'>
             <Form.Label>Password</Form.Label>
             <Form.Control
-              type="password"
-              placeholder="Enter password"
+              type='password'
+              placeholder='Enter password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="confrimPassword">
+          <Form.Group controlId='confrimPassword'>
             <Form.Label>Confrim Password</Form.Label>
             <Form.Control
-              type="password"
-              placeholder="Confrim password"
+              type='password'
+              placeholder='Confrim password'
               value={confrimPassword}
               onChange={(e) => setConfrimPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Button type="submit" variant="primary">
+          <Button type='submit' variant='primary'>
             Update
           </Button>
         </Form>

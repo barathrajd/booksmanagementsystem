@@ -1,6 +1,6 @@
-import asyncHandler from "express-async-handler";
-import User from "../model/userModel.js";
-import generateToken from "../utils/token.js";
+const asyncHandler = require('express-async-handler');
+const User = require('../model/userModel');
+const generateToken = require('../utils/token');
 
 // @desc Auth user  & Get token
 // @route POST /api/users/login
@@ -21,7 +21,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("Invalid email or Password");
+    throw new Error('Invalid email or Password');
   }
 });
 
@@ -36,7 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(400);
-    throw new Error("User already Exists");
+    throw new Error('User already Exists');
   }
 
   const user = await User.create({
@@ -55,7 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Invalid user data ");
+    throw new Error('Invalid user data ');
   }
 });
 
@@ -75,7 +75,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error("User Not found");
+    throw new Error('User Not found');
   }
 });
 
@@ -104,8 +104,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error("User Not found");
+    throw new Error('User Not found');
   }
 });
 
-export { authUser, getUserProfile, registerUser, updateUserProfile };
+module.exports = { authUser, getUserProfile, registerUser, updateUserProfile };
