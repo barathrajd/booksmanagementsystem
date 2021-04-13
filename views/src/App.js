@@ -10,6 +10,8 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import ProfilePage from './pages/ProfilePage';
 import ShippingPage from './pages/ShippingPage';
+import PaymentPage from './pages/PaymentPage';
+import PlaceOrder from './pages/PlaceOrderPage';
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
       <main className='py-3'>
         <Container>
           <Switch>
+            <Route path='/placeorder' component={PlaceOrder} />
+            <Route path='/payment' component={PaymentPage} />
             <Route path='/shipping' component={ShippingPage} />
             <Route path='/login' component={LoginPage} />
             <Route path='/signup' component={SignupPage} />
