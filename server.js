@@ -15,18 +15,6 @@ app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
-app.use((req, res, next) => {
-  if ((process.env.NODE_ENV || '').trim() !== 'production') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-      'Access-Control-Allow-Methods',
-      'GET, POST, PUT, PATCH, DELETE'
-    );
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-auth-token');
-  }
-  next();
-});
-
 app.use('/api', routes);
 
 // Server Static files
