@@ -29,17 +29,6 @@ app.use((req, res, next) => {
 
 app.use('/api', routes);
 
-if ((process.env.NODE_ENV || '').trim() === 'production') {
-  app.use((req, res, next) => {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-      res.redirect(302, 'https://' + req.hostname + req.originalUrl);
-    } else {
-      next();
-    }
-  });
-  app.use(express.static('views/build'));
-}
-
 // Server Static files
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
