@@ -18,19 +18,13 @@ app.get('/', (req, res) => {
 
 app.use('/', routes);
 
-const __dirname = path.resolve();
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/views/build')));
-
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'views', 'build', 'index.html'))
-  );
-} else {
-  app.get('/', (req, res) => {
-    res.send('API is running....');
-  });
-}
+app.use('/*', (req, res) => {
+  if ((process.env.NODE_ENV || '').trim() == 'production') {
+    res.sendFile(__dirname + '/views/build/index.html');
+  } else {
+    res.send('Hello World!!');
+  }
+});
 
 app.use(notFound);
 
