@@ -48,10 +48,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use('/*', (req, res) => {
     res.send(path.resolve(__dirname, 'views', 'build', 'index.html'));
   });
-} else {
-  app.get('/', (req, res) => {
-    res.send('Welcome to BMS API');
-  });
 }
 
 app.use(notFound);
