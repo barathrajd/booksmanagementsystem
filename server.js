@@ -10,10 +10,6 @@ const app = express();
 
 app.use(express.json());
 
-app.use(notFound);
-
-app.use(errorHandler);
-
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
@@ -23,6 +19,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', routes);
+
+app.use(notFound);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(
