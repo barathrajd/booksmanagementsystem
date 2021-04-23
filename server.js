@@ -22,8 +22,12 @@ if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('views/build'));
 
-  app.use('*', (req, res) => {
+  app.use('/', (req, res) => {
     res.send(path.resolve(__dirname, 'views', 'build', 'index.html'));
+  });
+} else {
+  app.use('/', (req, res) => {
+    res.send('Welcome to BMS API');
   });
 }
 
