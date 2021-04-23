@@ -12,17 +12,17 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Welcome to Book Management System API');
-});
+app.use('/api', routes);
 
-app.use('/', routes);
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+);
 
 app.use('/*', (req, res) => {
   if ((process.env.NODE_ENV || '').trim() == 'production') {
     res.sendFile(__dirname + '/views/build/index.html');
   } else {
-    res.send('Hello World!!');
+    res.send('Welcome to Book Management System API');
   }
 });
 

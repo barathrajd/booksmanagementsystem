@@ -8,11 +8,8 @@ const { auth } = require('../middleware/authentication');
 
 const router = express.Router();
 
-router.post('/orders/', auth, addOrderItems);
-router.get('/orders/:id', auth, getOrderByID);
-router.put('/orders/:id/pay', auth, updateOrderToPaid);
-router.get('/config/paypal', (req, res) =>
-  res.send(process.env.PAYPAL_CLIENT_ID)
-);
+router.post('/', auth, addOrderItems);
+router.get('/:id', auth, getOrderByID);
+router.put('/:id/pay', auth, updateOrderToPaid);
 
 module.exports = router;

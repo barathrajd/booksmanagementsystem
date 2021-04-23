@@ -5,12 +5,12 @@ const userRouter = require('./userRoutes');
 const orderRouter = require('./orderRoutes');
 
 // Product Route
-router.use('/api', productRouter);
+router.use('/products', productRouter);
 
 //User Route
-router.use('/api', userRouter);
+router.use('/users', userRouter);
 
 // Order Route
-router.use('/api', orderRouter);
+router.use('/orders', orderRouter);
 
 module.exports = router;
