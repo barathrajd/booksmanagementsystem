@@ -3,7 +3,6 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const routes = require('./routes/routes');
 const { notFound, errorHandler } = require('./middleware/error');
-const path = require('path');
 
 dotenv.config();
 connectDB();
@@ -18,18 +17,13 @@ app.get('/api/config/paypal', (req, res) =>
 app.use('/api', routes);
 
 // Server Static files
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('views/build'));
-
-  app.use('/', (req, res) => {
-    res.send(path.resolve(__dirname, 'views', 'build', 'index.html'));
-  });
-} else {
-  app.use('/', (req, res) => {
-    res.send('Welcome to BMS API');
-  });
-}
+app.use('/*', (req, res) => {
+  if ((process.env.NODE_ENV || '').trim() == 'production') {
+    res.sendFile(__dirname + '/views/build/index.html');
+  } else {
+    res.send('Hello World!!');
+  }
+});
 
 app.use(notFound);
 
