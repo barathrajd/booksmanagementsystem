@@ -15,11 +15,11 @@ app.get('/api/config/paypal', (req, res) =>
 );
 
 app.use('/api', routes);
-app.use(express.static('views/build'));
 
 // Server Static files
 app.use('/*', (req, res) => {
   if ((process.env.NODE_ENV || '').trim() == 'production') {
+    app.use(express.static('views/build'));
     res.sendFile(__dirname + '/views/build/index.html');
   } else {
     res.send('Hello World!!');
