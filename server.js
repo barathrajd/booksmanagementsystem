@@ -15,6 +15,7 @@ app.get('/api/config/paypal', (req, res) =>
 );
 
 app.use('/api', routes);
+app.use(express.static('views/build'));
 
 // Server Static files
 app.use('/*', (req, res) => {
