@@ -5,12 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { listProducts } from '../actions/productionActions';
+import { deleteProduct } from '../actions/adminActions';
 
 const ProductListPage = ({ history, match }) => {
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
+
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -21,7 +29,7 @@ const ProductListPage = ({ history, match }) => {
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, successDelete, userInfo]);
 
   const createProductHandler = (product) => {
     //   Create New Product
@@ -29,8 +37,7 @@ const ProductListPage = ({ history, match }) => {
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you Sure ?')) {
-      console.log('Hello');
-      // dispatch(deleteProducts(id));
+      dispatch(deleteProduct(id));
     }
   };
 
@@ -46,6 +53,8 @@ const ProductListPage = ({ history, match }) => {
           </Button>
         </Col>
       </Row>
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (

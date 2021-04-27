@@ -10,6 +10,7 @@
     "clientinstall": "cd views && npm install",
     "clientbuild": "npm run build --prefix views",
     "postinstall": "npm run clientinstall",
+    "data:import": "node seeder",
     "dev": "concurrently \"npm run server\" \"npm run client\" ",
     "prod": "npm run clientbuild && cross-env NODE_ENV=production npm start",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix views && npm run build --prefix views"

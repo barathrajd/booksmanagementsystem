@@ -4,6 +4,7 @@ const {
   deleteUser,
   getUserById,
   updateUser,
+  deleteProduct,
 } = require('../controllers/adminController');
 const { auth, admin } = require('../middleware/authentication');
 const router = express.Router();
@@ -19,5 +20,8 @@ router.get('/users/:id', auth, admin, getUserById);
 
 // Update User
 router.put('/users/:id', auth, admin, updateUser);
+
+// Delete Product
+router.delete('/products/:id', auth, admin, deleteProduct);
 
 module.exports = router;

@@ -11,6 +11,9 @@ import {
   USER_DETAILS_BY_ID_SUCCESS,
   USER_DETAILS_BY_ID_REQUEST,
   USER_DETAILS_BY_ID_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
 } from '../types';
 import { logout } from './userActions';
 import axios from 'axios';
@@ -159,6 +162,41 @@ export const getUser = (id) => async (dispatch, getState) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
+    });
+  }
+};
+
+// Delete User
+export const deleteProduct = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_DELETE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'x-auth-token': `${userInfo.token}`,
+      },
+    };
+
+    await axios.delete(`/api/admin/products/${id}`, config);
+
+    dispatch({ type: PRODUCT_DELETE_SUCCESS });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout());
+    }
+    dispatch({
+      type: PRODUCT_DELETE_FAIL,
+      payload: message,
     });
   }
 };
