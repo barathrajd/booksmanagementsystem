@@ -15,6 +15,7 @@ import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
 import UserListPage from './pages/UserListPage';
 import UserEditPage from './pages/UserEditPage';
+import ProductListPage from './pages/ProductListPage';
 
 const App = () => {
   return (
@@ -32,7 +33,12 @@ const App = () => {
             <Route exact path='/profile' component={ProfilePage} />
             <Route exact path='/product/:id' component={ProductPage} />
             <Route exact path='/cart/:id?' component={CartPage} />
-            <Route exact path='/admin/userList' component={UserListPage} />
+            <Route exact path='/admin/userlist' component={UserListPage} />
+            <Route
+              exact
+              path='/admin/productlist'
+              component={ProductListPage}
+            />
             <Route exact path='/admin/user/:id/edit' component={UserEditPage} />
             <Route exact path='/' component={HomePage} />
           </Switch>
