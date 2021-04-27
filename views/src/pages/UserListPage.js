@@ -4,13 +4,16 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { listUsers } from '../actions/adminActions';
+import { listUsers, deleteUsers } from '../actions/adminActions';
 
 const UserPage = ({ history }) => {
   const dispatch = useDispatch();
 
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
+
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -21,10 +24,10 @@ const UserPage = ({ history }) => {
     } else {
       history.push('/login');
     }
-  }, [dispatch, history]);
+  }, [dispatch, history, successDelete, userInfo]);
 
   const deleteHandler = (id) => {
-    console.log('Delete');
+    if (window.confirm('Are you Sure ?')) dispatch(deleteUsers(id));
   };
 
   return (
