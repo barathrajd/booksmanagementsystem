@@ -8,9 +8,9 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
-  USER_DETAILS_SUCCESS,
-  USER_DETAILS_REQUEST,
-  USER_DETAILS_FAIL,
+  USER_DETAILS_BY_ID_SUCCESS,
+  USER_DETAILS_BY_ID_REQUEST,
+  USER_DETAILS_BY_ID_FAIL,
 } from '../types';
 import { logout } from './userActions';
 import axios from 'axios';
@@ -111,7 +111,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
     dispatch({ type: USER_UPDATE_SUCCESS });
 
     dispatch({
-      type: USER_DETAILS_SUCCESS,
+      type: USER_DETAILS_BY_ID_SUCCESS,
       payload: data,
     });
   } catch (error) {
@@ -133,7 +133,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
 export const getUser = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: USER_DETAILS_REQUEST,
+      type: USER_DETAILS_BY_ID_REQUEST,
     });
 
     const {
@@ -149,12 +149,12 @@ export const getUser = (id) => async (dispatch, getState) => {
     const { data } = await axios.get(`/api/admin/users/${id}`, config);
 
     dispatch({
-      type: USER_DETAILS_SUCCESS,
+      type: USER_DETAILS_BY_ID_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: USER_DETAILS_FAIL,
+      type: USER_DETAILS_BY_ID_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
