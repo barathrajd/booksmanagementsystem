@@ -4,7 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { listUsers, deleteUsers } from '../actions/adminActions';
+import { listUsers, deleteUser } from '../actions/adminActions';
 
 const UserPage = ({ history }) => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const UserPage = ({ history }) => {
   }, [dispatch, history, successDelete, userInfo]);
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you Sure ?')) dispatch(deleteUsers(id));
+    if (window.confirm('Are you Sure ?')) dispatch(deleteUser(id));
   };
 
   return (
@@ -64,7 +64,7 @@ const UserPage = ({ history }) => {
                   )}
                 </td>
                 <td>
-                  <LinkContainer to={`/users/${user._id}/edit`}>
+                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant='light' className='btn-sm'>
                       <i className='fas fa-edit' />
                     </Button>
