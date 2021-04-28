@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const routes = require('./routes/routes');
 const { notFound, errorHandler } = require('./middleware/error');
+const path = require('path');
 
 dotenv.config();
 connectDB();
@@ -15,10 +16,12 @@ app.get('/api/config/paypal', (req, res) =>
 );
 
 app.use('/api', routes);
+const __dirname = path.resolve;
 
 app.use(express.static('views/build'));
-// Server Static files
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
+// Server Static files
 app.use('/*', (req, res) => {
   if ((process.env.NODE_ENV || '').trim() == 'production') {
     res.sendFile(__dirname + '/views/build/index.html');

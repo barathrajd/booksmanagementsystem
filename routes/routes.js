@@ -4,6 +4,7 @@ const productRouter = require('./productRoutes');
 const userRouter = require('./userRoutes');
 const orderRouter = require('./orderRoutes');
 const adminRouter = require('./adminRoutes');
+const uploadRouter = require('./uploadRoutes');
 
 // Product Route
 router.use('/products', productRouter);
@@ -16,5 +17,8 @@ router.use('/orders', orderRouter);
 
 // Admin Route
 router.use('/admin', adminRouter);
+
+// Admin Route
+router.use('/upload', uploadRouter);
 
 module.exports = router;
