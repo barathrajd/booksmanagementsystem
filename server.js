@@ -16,6 +16,7 @@ app.get('/api/config/paypal', (req, res) =>
 );
 
 app.use('/api', routes);
+app.use(express.static('views/build'));
 
 const _dirname = path.resolve();
 app.use('/uploads', express.static(path.join(_dirname, '/uploads')));
@@ -23,9 +24,7 @@ app.use('/uploads', express.static(path.join(_dirname, '/uploads')));
 // Server Static files
 app.use('/*', (req, res) => {
   if ((process.env.NODE_ENV || '').trim() === 'production') {
-    app.use(express.static(path.join(_dirname, '/views/build')));
-
-    res.sendFile(path.resolve(_dirname, 'views', 'build', 'index.html'));
+    res.sendFile(__dirname + '/views/build/index.html');
   } else {
     res.send('Hello World!!');
   }
