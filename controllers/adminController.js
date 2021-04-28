@@ -83,10 +83,84 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Create a Product
+// @route POST /api/admin/products/
+// @access Private/Admin
+
+const createProduct = asyncHandler(async (req, res) => {
+  const product = await Product({
+    isbn: 'Enter ISBN',
+    title: 'Book Title',
+    user: req.user._id,
+    image: '/images/default.svg',
+    subtitle: 'Enter Subtitle',
+    author: 'Author Name',
+    published: 'Date',
+    publisher: 'Enter Publisher',
+    pages: 472,
+    description: 'Enter discription',
+    price: 0,
+    rating: 0,
+    countInStock: 0,
+    numReviews: 0,
+  });
+
+  const createdProduct = await product.save();
+  res.json(createdProduct);
+});
+
+// @desc Update a Product
+// @route PUT /api/admin/products/:id
+// @access Private/Admin
+
+const updateProduct = asyncHandler(async (req, res) => {
+  const {
+    isbn,
+    title,
+    subtitle,
+    author,
+    image,
+    published,
+    publisher,
+    pages,
+    description,
+    price,
+    rating,
+    countInStock,
+    numReviews,
+  } = req.body;
+
+  const product = await Product.findById(req.params.id);
+  if (product) {
+    product.isbn = isbn;
+    product.user = req.user._id;
+    product.title = title;
+    product.subtitle = subtitle;
+    product.author = author;
+    product.image = image;
+    product.published = published;
+    product.publisher = publisher;
+    product.pages = pages;
+    product.description = description;
+    product.price = price;
+    product.rating = rating;
+    product.countInStock = countInStock;
+    product.numReviews = numReviews;
+
+    const updatedProduct = await product.save();
+    res.json(updatedProduct);
+  } else {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+});
+
 module.exports = {
   getUsers,
   deleteUser,
   getUserById,
   updateUser,
   deleteProduct,
+  createProduct,
+  updateProduct,
 };
