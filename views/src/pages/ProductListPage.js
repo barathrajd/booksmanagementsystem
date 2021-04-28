@@ -101,7 +101,7 @@ const ProductListPage = ({ history, match }) => {
                 <td>{product.author}</td>
                 <td>&#x20B9;{product.price}</td>
                 <td>
-                  <LinkContainer to={`/admin/user/${product._id}/edit`}>
+                  <LinkContainer to={`/admin/product/${product._id}/edit`}>
                     <Button variant='light' className='btn-sm'>
                       <i className='fas fa-edit' />
                     </Button>
