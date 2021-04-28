@@ -28,7 +28,7 @@ const productSchema = mongoose.Schema(
     subtitle: { type: String, required: true },
     image: { type: String, required: true },
     author: { type: String, required: true },
-    published: { type: Date, required: true },
+    published: { type: String, required: true },
     publisher: { type: String, required: true },
     pages: { type: Number, required: true },
     description: { type: String, required: true },

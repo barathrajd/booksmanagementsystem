@@ -1,7 +1,6 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const { auth } = require('../middleware/authentication');
 
 const router = express.Router();
 
@@ -17,7 +16,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const checkFileType = (file, cd) => {
+const checkFileType = (file, cb) => {
   const fileTypes = /jpg|jpeg|png|svg/;
   const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
   const mimeType = fileTypes.test(file.mimetype);

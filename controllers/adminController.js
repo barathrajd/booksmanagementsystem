@@ -95,7 +95,7 @@ const createProduct = asyncHandler(async (req, res) => {
     image: '/images/default.svg',
     subtitle: 'Enter Subtitle',
     author: 'Author Name',
-    published: Date('2014-12-14T00:00:00.000Z'),
+    published: '2014-12-14T00:00:00.000Z',
     publisher: 'Enter Publisher',
     pages: 472,
     description: 'Enter discription',
