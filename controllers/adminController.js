@@ -95,7 +95,7 @@ const createProduct = asyncHandler(async (req, res) => {
     image: '/images/default.svg',
     subtitle: 'Enter Subtitle',
     author: 'Author Name',
-    published: 'Date',
+    published: Date('2014-12-14T00:00:00.000Z'),
     publisher: 'Enter Publisher',
     pages: 472,
     description: 'Enter discription',
@@ -125,9 +125,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     pages,
     description,
     price,
-    rating,
     countInStock,
-    numReviews,
   } = req.body;
 
   const product = await Product.findById(req.params.id);
@@ -143,9 +141,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.pages = pages;
     product.description = description;
     product.price = price;
-    product.rating = rating;
     product.countInStock = countInStock;
-    product.numReviews = numReviews;
 
     const updatedProduct = await product.save();
     res.json(updatedProduct);

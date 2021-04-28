@@ -6,6 +6,8 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import FormContainer from '../components/FormContainer';
 import { listProductDetails } from '../actions/productionActions';
+import { updateProduct } from '../actions/adminActions';
+import { PRODUCT_UPDATE_RESET } from '../types';
 
 const ProductEditPage = ({ match, history }) => {
   const productId = match.params.id;
@@ -15,12 +17,12 @@ const ProductEditPage = ({ match, history }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
-  // const productUpdate = useSelector((state) => state.productUpdate);
-  // const {
-  //   loading: loadingUpdate,
-  //   error: errorUpdate,
-  //   success: successUpdate,
-  // } = productUpdate;
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate;
 
   const [title, setTitle] = useState('');
   const [isbn, setIsbn] = useState('');
@@ -35,41 +37,46 @@ const ProductEditPage = ({ match, history }) => {
   const [countInStock, setCountInStock] = useState(0);
 
   useEffect(() => {
-    if (!product.title || product._id !== productId) {
-      dispatch(listProductDetails(productId));
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+      history.push('/admin/productlist');
     } else {
-      setIsbn(product.isbn);
-      setTitle(product.title);
-      setSubtitle(product.subtitle);
-      setAuthor(product.author);
-      setImage(product.image);
-      setPublished(product.published);
-      setPublisher(product.publisher);
-      setPages(product.pages);
-      setDescription(product.description);
-      setPrice(product.price);
-      setCountInStock(product.countInStock);
+      if (!product.title || product._id !== productId) {
+        dispatch(listProductDetails(productId));
+      } else {
+        setIsbn(product.isbn);
+        setTitle(product.title);
+        setSubtitle(product.subtitle);
+        setAuthor(product.author);
+        setImage(product.image);
+        setPublished(product.published);
+        setPublisher(product.publisher);
+        setPages(product.pages);
+        setDescription(product.description);
+        setPrice(product.price);
+        setCountInStock(product.countInStock);
+      }
     }
-  }, [dispatch, history, productId, product]);
+  }, [dispatch, history, productId, product, successUpdate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // dispatch(
-    //   updateProduct({
-    //     _id: productId,
-    //     title,
-    //     isbn,
-    //     subtitle,
-    //     author,
-    //     image,
-    //     published,
-    //     publisher,
-    //     countInStock,
-    //     price,
-    //     pages,
-    //     description,
-    //   })
-    // );
+    dispatch(
+      updateProduct({
+        _id: productId,
+        title,
+        isbn,
+        subtitle,
+        author,
+        image,
+        published,
+        publisher,
+        countInStock,
+        price,
+        pages,
+        description,
+      })
+    );
   };
 
   return (
@@ -80,8 +87,8 @@ const ProductEditPage = ({ match, history }) => {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
-        {/* {loadingUpdate && <Loader />}
-        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>} */}
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
@@ -136,7 +143,7 @@ const ProductEditPage = ({ match, history }) => {
             <Form.Group controlId='published'>
               <Form.Label>Published</Form.Label>
               <Form.Control
-                type='text'
+                type='date'
                 placeholder='Enter published'
                 value={published}
                 onChange={(e) => setPublished(e.target.value)}
