@@ -4,12 +4,15 @@ const connectDB = require('./config/db');
 const routes = require('./routes/routes');
 const { notFound, errorHandler } = require('./middleware/error');
 const path = require('path');
+const morgan = require('morgan');
 
 dotenv.config();
 connectDB();
 const app = express();
 
 app.use(express.json());
+
+if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
