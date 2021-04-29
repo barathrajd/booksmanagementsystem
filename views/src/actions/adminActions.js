@@ -20,6 +20,12 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
+  ORDER_LIST_REQUEST,
+  ORDER_LIST_SUCCESS,
+  ORDER_LIST_FAIL,
+  ORDER_DELIEVER_REQUEST,
+  ORDER_DELIEVER_SUCCESS,
+  ORDER_DELIEVER_FAIL,
 } from '../types';
 import { logout } from './userActions';
 import axios from 'axios';
@@ -284,6 +290,76 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
       payload: message,
+    });
+  }
+};
+
+export const myOrderLists = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'x-auth-token': `${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/admin/orders`, config);
+
+    dispatch({
+      type: ORDER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deliverOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_DELIEVER_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        'x-auth-token': `${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/admin/orders/${order._id}/deliver`,
+      config
+    );
+
+    dispatch({
+      type: ORDER_DELIEVER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DELIEVER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

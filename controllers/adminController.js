@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const User = require('../model/userModel');
 const Product = require('../model/productModel');
+const Order = require('../model/orderModel');
 
 // @desc Get All Users
 // @route GET /api/admin/users/
@@ -151,6 +152,35 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc GET ALL ORDER
+// @route GET /api/admin/orders/
+// @access Private/Admin
+
+const getOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({}).populate('user', 'id name');
+  res.json(orders);
+});
+
+// @desc Update order to delivered
+// @route GET /api/admin/orders/:id/deliver
+// @access Private/Admin
+
+const updateOrderToDelivered = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
+  } else {
+    res.send(404);
+    throw new Error('Order not found');
+  }
+});
+
 module.exports = {
   getUsers,
   deleteUser,
@@ -159,4 +189,6 @@ module.exports = {
   deleteProduct,
   createProduct,
   updateProduct,
+  getOrders,
+  updateOrderToDelivered,
 };

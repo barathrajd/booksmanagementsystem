@@ -7,6 +7,8 @@ const {
   deleteProduct,
   createProduct,
   updateProduct,
+  getOrders,
+  updateOrderToDelivered,
 } = require('../controllers/adminController');
 const { auth, admin } = require('../middleware/authentication');
 const router = express.Router();
@@ -31,5 +33,11 @@ router.post('/products/', auth, admin, createProduct);
 
 // Update Product
 router.put('/products/:id', auth, admin, updateProduct);
+
+// GET All Orders
+router.get('/orders', auth, admin, getOrders);
+
+// Update Order to Deliveried
+router.put('/orders/:id/deliver', auth, admin, updateOrderToDelivered);
 
 module.exports = router;
