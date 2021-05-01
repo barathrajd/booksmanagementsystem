@@ -24,12 +24,11 @@ npm run server
 
 To run the front end app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
 ```js
-npm run frontend
+npm run client
 ```
 
 To start both frontend and backend servers concurrently at development.
