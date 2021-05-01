@@ -18,6 +18,7 @@ import {
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../types';
+import Meta from '../components/Meta';
 
 const ProductPage = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -75,6 +76,11 @@ const ProductPage = ({ history, match }) => {
         <Message variant='danger'> {error}</Message>
       ) : (
         <>
+          <Meta
+            title={product.title}
+            description={product.description}
+            keywords={product.title}
+          />
           <Row>
             <Col md={3}>
               <ListGroup variant='flush'>

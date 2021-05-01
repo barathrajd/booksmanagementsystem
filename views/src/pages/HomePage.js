@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Product from '../components/Product';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import { Col, Row } from 'react-bootstrap';
 import { listProducts } from '../actions/productionActions';
 
@@ -20,6 +21,7 @@ const HomePage = ({ match }) => {
 
   return (
     <>
+      <Meta />
       <h1>Latest Books</h1>
       {loading ? (
         <Loader />
