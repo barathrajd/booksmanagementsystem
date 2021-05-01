@@ -38,7 +38,7 @@ if ((process.env.NODE_ENV || '').trim() === 'production') {
 
 // Server Static files
 app.use('/*', (req, res) => {
-  if ((process.env.NODE_ENV || '').trim() == 'production') {
+  if (process.env.NODE_ENV === 'production') {
     res.sendFile(__dirname + '/views/build/index.html');
   } else {
     res.send('Hello World!!');
