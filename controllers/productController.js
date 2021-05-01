@@ -6,7 +6,15 @@ const Product = require('../model/productModel');
 // @access Public
 
 const getProducts = asyncHandler(async (req, res) => {
-  const product = await Product.find({});
+  const keyword = req.query.keyword
+    ? {
+        title: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+  const product = await Product.find({ ...keyword });
   res.json(product);
 });
 
