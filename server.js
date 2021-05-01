@@ -24,9 +24,21 @@ app.use(express.static('views/build'));
 const _dirname = path.resolve();
 app.use('/uploads', express.static(path.join(_dirname, '/uploads')));
 
+// Serving static files for production
+if ((process.env.NODE_ENV || '').trim() === 'production') {
+  app.use((req, res, next) => {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      res.redirect(302, 'https://' + req.hostname + req.originalUrl);
+    } else {
+      next();
+    }
+  });
+  app.use(express.static('views/build'));
+}
+
 // Server Static files
 app.use('/*', (req, res) => {
-  if ((process.env.NODE_ENV || '').trim() === 'production') {
+  if ((process.env.NODE_ENV || '').trim() == 'production') {
     res.sendFile(__dirname + '/views/build/index.html');
   } else {
     res.send('Hello World!!');
