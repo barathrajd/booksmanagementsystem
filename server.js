@@ -49,7 +49,7 @@ app.use(notFound);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.NODE_PORT || 5000;
 app.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} the ${PORT}`),

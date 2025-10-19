@@ -4,15 +4,15 @@
   "description": "Book Management System",
   "main": "server.js",
   "scripts": {
-    "start": "bun server.js",
-    "server": "bun run --watch server.js",
-    "client": "bun start --prefix views",
-    "clientinstall": "bun install --prefix views",
-    "clientbuild": "bun run build --prefix views",
+    "start": "cross-env NODE_PORT=8000 bun server.js",
+    "server": "bun run server.js",
+    "client": "bun run --cwd ./views start",
+    "clientinstall": "bun install --cwd ./views",
+    "clientbuild": "bun run --cwd ./views build",
     "postinstall": "bun run clientinstall",
     "data:import": "bun seeder",
     "dev": "concurrently \"bun run server\" \"bun run client\" ",
-    "prod": "bun run clientbuild && cross-env NODE_ENV=production bun start"
+    "prod": "cross-env NODE_ENV=production bun start"
   },
   "keywords": [
     "Project",
