@@ -10,13 +10,13 @@ For install dependencies,
 npm install
 ```
 
-To run the server at http://localhost:5000
+To run the server at http://localhost:8000
 
 ```js
 npm start
 ```
 
-To run the server in the development mode at http://localhost:5000
+To run the server in the development mode at http://localhost:8000
 
 ```js
 npm run server
@@ -32,7 +32,7 @@ npm run client
 ```
 
 To start both frontend and backend servers concurrently at development.
-Runs backend at http://localhost:5000
+Runs backend at http://localhost:8000
 Open frontend at http://localhost:3000
 
 ```js
@@ -40,4 +40,4 @@ npm run prod
 ```
 
 To start application in production.
-Build frontend and run the whole application at http://localhost:5000
+Build frontend and run the whole application at http://localhost:8000

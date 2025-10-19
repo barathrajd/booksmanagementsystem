@@ -4,16 +4,15 @@
   "description": "Book Management System",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server",
-    "client": "npm start --prefix views",
-    "clientinstall": "cd views && npm install",
-    "clientbuild": "npm run build --prefix views",
-    "postinstall": "npm run clientinstall",
-    "data:import": "node seeder",
-    "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "prod": "npm run clientbuild && cross-env NODE_ENV=production npm start",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix views && npm run build --prefix views"
+    "start": "bun server.js",
+    "server": "bun run --watch server.js",
+    "client": "bun start --prefix views",
+    "clientinstall": "bun install --prefix views",
+    "clientbuild": "bun run build --prefix views",
+    "postinstall": "bun run clientinstall",
+    "data:import": "bun seeder",
+    "dev": "concurrently \"bun run server\" \"bun run client\" ",
+    "prod": "bun run clientbuild && cross-env NODE_ENV=production bun start"
   },
   "keywords": [
     "Project",
@@ -30,12 +29,12 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
+    "mongodb": "6.20",
     "mongoose": "^5.12.3",
     "multer": "^1.4.2"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.7"
+    "morgan": "^1.10.0"
   }
 }

@@ -1,17 +1,16 @@
-const dotenv = require('dotenv');
-const users = require('./data/users');
-const products = require('./data/products');
-const User = require('./model/userModel');
-const Product = require('./model/productModel');
-const Order = require('./model/orderModel');
-const connectDB = require('./config/db');
+const dotenv = require("dotenv");
+const users = require("./data/users");
+const products = require("./data/products");
+const User = require("./model/userModel");
+const Product = require("./model/productModel");
+const Order = require("./model/orderModel");
+const connectDB = require("./config/db");
 
 dotenv.config();
 
-connectDB();
-
 const importData = async () => {
   try {
+    await connectDB();
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
@@ -25,7 +24,7 @@ const importData = async () => {
     });
 
     await Product.insertMany(sampleProducts);
-    console.log('Data Imported');
+    console.log("Data Imported");
     process.exit();
   } catch (err) {
     console.error(err);
@@ -39,7 +38,7 @@ const destroyData = async () => {
     await Product.deleteMany();
     await User.deleteMany();
 
-    console.log('Data Destroyed');
+    console.log("Data Destroyed");
     process.exit();
   } catch (err) {
     console.error(err);
@@ -47,7 +46,7 @@ const destroyData = async () => {
   }
 };
 
-if (process.argv[2] === '-d') {
+if (process.argv[2] === "-d") {
   destroyData();
 } else {
   importData();
