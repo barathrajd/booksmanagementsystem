@@ -4,6 +4,7 @@ const connectDB = require("./config/db");
 const routes = require("./routes/routes");
 const { notFound, errorHandler } = require("./middleware/error");
 const path = require("path");
+const serverless = require("serverless-http");
 // const morgan = require('morgan');
 
 dotenv.config();
@@ -19,7 +20,7 @@ app.get("/api/config/paypal", (req, res) =>
 );
 
 app.use("/api", routes);
-app.use(express.static("views/build"));
+// app.use(express.static("views/build"));
 
 const _dirname = path.resolve();
 app.use("/uploads", express.static(path.join(_dirname, "/uploads")));
@@ -54,3 +55,6 @@ app.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} the ${PORT}`),
 );
+
+module.exports = app;
+module.exports.handler = serverless(app);

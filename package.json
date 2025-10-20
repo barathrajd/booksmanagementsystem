@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "cross-env NODE_PORT=8000 bun server.js",
-    "server": "bun run server.js",
+    "server": "cross-env NODE_PORT=8000 bun run server.js",
     "client": "bun run --cwd ./views start",
     "clientinstall": "bun install --cwd ./views",
     "clientbuild": "bun run --cwd ./views build",
@@ -23,6 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "caniuse-lite": "^1.0.30001751",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
@@ -31,7 +32,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "6.20",
     "mongoose": "^5.12.3",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "serverless-http": "^4.0.0"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",
